@@ -1,0 +1,20 @@
+version: '3'
+services:
+    nestjs-db:
+      image: postgres:14.4
+      container_name: nestjs-db
+      environment:
+        TZ: 'Asia/Tokyo'
+        POSTGRES_USER: 'docker'
+        POSTGRES_PASSWORD: 'docker'
+        POSTGRES_DB: 'nestjs_development'
+      volumes:
+        - ./.docker/db/init.sql:/docker-entrypoint_initdb.d
+      ports:
+        - 5432:5432
+#    adminerによってdbにguiでアクセスできる
+    adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
