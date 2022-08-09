@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { TodoModule } from './todo/todo.module';
+import { Todo } from './todo/todo.entity';
 
 @Module({
   imports: [
@@ -13,10 +15,12 @@ import { DataSource } from 'typeorm';
       username: 'docker',
       password: 'docker',
       database: 'nestjs_development',
-      entities: [],
+      //entityにtodo.entity.ts追加したので下記を追記。
+      entities: [Todo],
       //productionでは使うと本番データが消えてしまうのでenvで切り替えしたほうがいい。
       synchronize: true,
     }),
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
